@@ -1,0 +1,21 @@
+{
+	"name": "the-overseer",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "GPL-3.0",
+	"dependencies": {
+		"@slack/bolt": "^2.1.1",
+		"dotenv": "^8.2.0",
+		"get-release": "^1.3.1",
+		"mongodb": "^3.6.3",
+		"node-fetch": "^2.6.1",
+		"sleep-synchronously": "^1.0.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.4"
+	},
+	"scripts": {
+		"start": "node -r dotenv/config src/index.ts",
+		"dev": "nodemon -r dotenv/config index.js"
+	}
+}
