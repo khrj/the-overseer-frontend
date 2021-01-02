@@ -6,6 +6,7 @@ The Overseer is split into
 
 - [The Backend](https://github.com/KhushrajRathod/TheOverseerBackend) -- A script that runs on the hour and computes Analytics
 - The Frontend (This) -- Listeners for the bot's slash commands and channel-join events
+- [Extras](https://github.com/KhushrajRathod/TheOverseerExtras) -- Extra features for The Overseer
 
 ## Running
 
