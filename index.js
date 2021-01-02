@@ -30,18 +30,6 @@ app.start(process.env.PORT || 3000).then(async () => {
         collection = database.collection('channels')
         console.log("BOT RUNNING")
 
-        // Listen for an event from the Events API
-        app.event("channel_created", ({ event, client }) => {
-            console.log(event)
-            client.conversations.join({
-                channel: event.channel.id
-            })
-            client.chat.postMessage({
-                channel: event.channel.id,
-                text: "Hello! If this is a channel where conversations between Humans are supposed to take place (most channels), then run /analytics-apply"
-            }).catch(_ => { })
-        })
-
         app.command('/analytics-disable', async ({ command, ack, say }) => {
             await ack()
             const currentStatus = await getStatus(command.channel_id)
