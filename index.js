@@ -209,7 +209,7 @@ app.start(process.env.PORT || 3000).then(async () => {
                             type: "section",
                             text: {
                                 type: "mrkdwn",
-                                text: ":chart_with_upwards_trend: Stats for the *past 30 days* (computed hourly)"
+                                text: ":chart_with_upwards_trend: Stats for the *past 30 days* (computed once every four hours)"
                             }
                         },
                         {
@@ -271,7 +271,7 @@ app.start(process.env.PORT || 3000).then(async () => {
                             type: "section",
                             text: {
                                 type: "mrkdwn",
-                                text: ":chart_with_upwards_trend: Personal Stats for the *past 30 days* (computed hourly)"
+                                text: ":chart_with_upwards_trend: Personal Stats for the *past 30 days* (computed once every four hours)"
                             }
                         },
                         {
@@ -333,7 +333,7 @@ app.start(process.env.PORT || 3000).then(async () => {
                             type: "section",
                             text: {
                                 type: "mrkdwn",
-                                text: ":chart_with_upwards_trend: User Stats for the *past 30 days* (computed hourly)"
+                                text: ":chart_with_upwards_trend: User Stats for the *past 30 days* (computed once every four hours)"
                             }
                         },
                         {
