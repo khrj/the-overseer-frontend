@@ -14,8 +14,8 @@ const admins = [
 ]
 
 const app = new App({
-    signingSecret: process.env.signing_secret,
-    token: process.env.token
+    signingSecret: process.env.SIGNING_SECRET,
+    token: process.env.TOKEN
 })
 
 app.command('/analytics-disable', async ({ command, ack }) => {
