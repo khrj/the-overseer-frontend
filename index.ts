@@ -2,7 +2,7 @@ import { App } from "@slack/bolt"
 import { PrismaClient, Status } from "@prisma/client"
 const prisma = new PrismaClient()
 
-import axios from "axios"
+import axios, { AxiosResponse } from "axios"
 
 const top20URL = "https://github.com/KhushrajRathod/TheOverseerBackend/releases/download/Latest/20.json"
 const leaderboardAllURL = "https://github.com/KhushrajRathod/TheOverseerBackend/releases/download/Latest/results.json"
@@ -134,12 +134,12 @@ app.command('/analytics-leaderboard', async ({ command, ack }) => {
     await ack()
 
     try {
-        const top20: [string, number][] = await axios.get(top20URL)
-
+        const top20: AxiosResponse<[string, number][]> = await axios.get(top20URL)
+        
         let formattedText = ":chart_with_upwards_trend: Stats for the *past 30 days* (computed once every four hours)\n\n"
 
-        for (let i = 0; i < top20.length; i++) {
-            formattedText += `${i + 1}. ${top20[i][0]}: ${top20[i][1]}\n`
+        for (let i = 0; i < top20.data.length; i++) {
+            formattedText += `${i + 1}. ${top20.data[i][0]}: ${top20.data[i][1]}\n`
         }
 
         await app.client.chat.postEphemeral({
@@ -163,14 +163,14 @@ app.command('/analytics-personal', async ({ command, ack }) => {
     await ack()
 
     try {
-        const results: [string, number][] = await axios.get(leaderboardAllURL)
-
+        const results: AxiosResponse<[string, number][]> = await axios.get(leaderboardAllURL)
+        
         let messages: number
         let rank: number
 
-        for (let i = 0; i < results.length; i++) {
-            if (results[i][0] === command.user_id) {
-                messages = results[i][1]
+        for (let i = 0; i < results.data.length; i++) {
+            if (results.data[i][0] === command.user_id) {
+                messages = results.data[i][1]
                 rank = i + 1
                 break
             }
@@ -199,7 +199,7 @@ app.command('/analytics-user', async ({ command, ack }) => {
     await ack()
 
     try {
-        const results: [string, number][] = await axios.get(leaderboardAllURL)
+        const results: AxiosResponse<[string, number][]> = await axios.get(leaderboardAllURL)
 
         const regex = /<@(.*)\|.*>/
         const user = command.text.match(regex)
@@ -207,9 +207,9 @@ app.command('/analytics-user', async ({ command, ack }) => {
         let messages: number
         let rank: number
 
-        for (let i = 0; i < results.length; i++) {
-            if (results[i][0] === user[1]) {
-                messages = results[i][1]
+        for (let i = 0; i < results.data.length; i++) {
+            if (results.data[i][0] === user[1]) {
+                messages = results.data[i][1]
                 rank = i + 1
                 break
             }
