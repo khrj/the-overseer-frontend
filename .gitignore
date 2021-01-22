@@ -117,3 +117,6 @@ dist
 
 # Repl.it
 .upm
+
+# Prisma
+prisma/migrations
