@@ -15,7 +15,7 @@
 		"nodemon": "^2.0.4"
 	},
 	"scripts": {
-		"start": "node -r dotenv/config index.js",
-		"dev": "nodemon -r dotenv/config index.js"
+		"start": "tsc index.ts && node -r dotenv/config index.js",
+		"dev": "tsc index.ts && nodemon -r dotenv/config index.js"
 	}
 }
