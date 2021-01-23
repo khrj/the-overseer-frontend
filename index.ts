@@ -18,20 +18,18 @@ const app = new App({
     token: process.env.TOKEN
 })
 
-app.command('/analytics-disable', async ({ command, ack }) => {
+app.command('/analytics-disable', async ({ command, ack, client }) => {
     await ack()
     const currentStatus = await getStatus(command.channel_id)
     if (currentStatus === Status.REJECTED) {
-        app.client.chat.postEphemeral({
-            token: process.env.token,
+        client.chat.postEphemeral({
             channel: command.channel_id,
             text: "Analytics for this channel are already disabled.",
             user: command.user_id
         }).catch(_ => { })
     } else {
         if (admins.includes(command.user_id)) {
-            app.client.chat.postEphemeral({
-                token: process.env.token,
+            client.chat.postEphemeral({
                 channel: command.channel_id,
                 text: "Disabling analytics for " + command.channel_id,
                 user: command.user_id
@@ -39,14 +37,12 @@ app.command('/analytics-disable', async ({ command, ack }) => {
 
             await set(command.channel_id, Status.REJECTED)
 
-            app.client.chat.postMessage({
-                token: process.env.token,
+            client.chat.postMessage({
                 channel: "G01HZC1QFMX",
                 text: `<#${command.channel_id}> was disabled by <@${command.user_id}>`
             }).catch(_ => { })
         } else {
-            app.client.chat.postEphemeral({
-                token: process.env.token,
+            client.chat.postEphemeral({
                 channel: command.channel_id,
                 text: "Unfortunately, you don't have sufficient permissions to disable analytics. Ping @analytics-review-team instead",
                 user: command.user_id
@@ -55,12 +51,11 @@ app.command('/analytics-disable', async ({ command, ack }) => {
     }
 })
 
-app.command('/analytics-enable', async ({ command, ack }) => {
+app.command('/analytics-enable', async ({ command, ack, client }) => {
     await ack()
     const currentStatus = await getStatus(command.channel_id)
     if (currentStatus === Status.APPROVED) {
-        app.client.chat.postEphemeral({
-            token: process.env.token,
+        client.chat.postEphemeral({
             channel: command.channel_id,
             text: "Analytics for this channel are already enabled! :yay:",
             user: command.user_id
@@ -68,21 +63,18 @@ app.command('/analytics-enable', async ({ command, ack }) => {
     } else {
         if (admins.includes(command.user_id)) {
             await getStatus(command.channel_id)
-            app.client.chat.postEphemeral({
-                token: process.env.token,
+            client.chat.postEphemeral({
                 channel: command.channel_id,
                 text: "Enabling analytics for " + command.channel_id,
                 user: command.user_id
             }).catch(_ => { })
             await set(command.channel_id, Status.APPROVED)
-            app.client.chat.postMessage({
-                token: process.env.token,
+            client.chat.postMessage({
                 channel: "G01HZC1QFMX",
                 text: `<#${command.channel_id}> was enabled by <@${command.user_id}>`
             }).catch(_ => { })
         } else {
-            app.client.chat.postEphemeral({
-                token: process.env.token,
+            client.chat.postEphemeral({
                 channel: command.channel_id,
                 text: "Unfortunately, you don't have sufficient permissions to enable analytics. Run /analytics-apply instead",
                 user: command.user_id
@@ -130,7 +122,7 @@ app.command('/analytics-enable', async ({ command, ack }) => {
 //     ]
 // }).catch(_ => { })
 
-app.command('/analytics-leaderboard', async ({ command, ack }) => {
+app.command('/analytics-leaderboard', async ({ command, ack, client }) => {
     await ack()
 
     try {
@@ -142,16 +134,14 @@ app.command('/analytics-leaderboard', async ({ command, ack }) => {
             formattedText += `${i + 1}. ${top20.data[i][0]}: ${top20.data[i][1]}\n`
         }
 
-        await app.client.chat.postEphemeral({
-            token: process.env.token,
+        client.chat.postEphemeral({
             channel: command.channel_id,
             user: command.user_id,
             text: formattedText
         })
     } catch (e) {
         console.log(e)
-        await app.client.chat.postEphemeral({
-            token: process.env.token,
+        client.chat.postEphemeral({
             channel: command.channel_id,
             user: command.user_id,
             text: "Error fetching leaderboard. Wait one minute for the Rate limit to reset, if errors continue, contact <@U01C21G88QM>"
@@ -159,7 +149,7 @@ app.command('/analytics-leaderboard', async ({ command, ack }) => {
     }
 })
 
-app.command('/analytics-personal', async ({ command, ack }) => {
+app.command('/analytics-personal', async ({ command, ack, client }) => {
     await ack()
 
     try {
@@ -176,8 +166,7 @@ app.command('/analytics-personal', async ({ command, ack }) => {
             }
         }
 
-        await app.client.chat.postEphemeral({
-            token: process.env.token,
+        client.chat.postEphemeral({
             channel: command.channel_id,
             user: command.user_id,
             text:
@@ -186,8 +175,7 @@ app.command('/analytics-personal', async ({ command, ack }) => {
         })
     } catch (e) {
         console.log(e)
-        await app.client.chat.postEphemeral({
-            token: process.env.token,
+        client.chat.postEphemeral({
             channel: command.channel_id,
             user: command.user_id,
             text: "Error fetching leaderboard. Wait one minute for the Rate limit to reset, if errors continue, contact <@U01C21G88QM>"
@@ -195,7 +183,7 @@ app.command('/analytics-personal', async ({ command, ack }) => {
     }
 })
 
-app.command('/analytics-user', async ({ command, ack }) => {
+app.command('/analytics-user', async ({ command, ack, client }) => {
     await ack()
 
     try {
@@ -215,8 +203,7 @@ app.command('/analytics-user', async ({ command, ack }) => {
             }
         }
 
-        await app.client.chat.postEphemeral({
-            token: process.env.token,
+        client.chat.postEphemeral({
             channel: command.channel_id,
             user: command.user_id,
             text:
@@ -225,8 +212,7 @@ app.command('/analytics-user', async ({ command, ack }) => {
         })
     } catch (e) {
         console.log(e)
-        await app.client.chat.postEphemeral({
-            token: process.env.token,
+        client.chat.postEphemeral({
             channel: command.channel_id,
             user: command.user_id,
             text: "Error fetching leaderboard. Wait one minute for the Rate limit to reset, if errors continue, contact <@U01C21G88QM>"
@@ -235,12 +221,11 @@ app.command('/analytics-user', async ({ command, ack }) => {
 })
 
 
-app.action('approve', async ({ body, ack }: any) => {
+app.action('approve', async ({ body, ack, client }: any) => {
     await ack()
     await set(body.actions[0].value, Status.APPROVED)
 
-    app.client.chat.update({
-        token: process.env.token,
+    client.chat.update({
         channel: "G01HZC1QFMX",
         ts: body.message.ts,
         blocks: [],
@@ -248,12 +233,11 @@ app.action('approve', async ({ body, ack }: any) => {
     })
 })
 
-app.action('reject', async ({ body, ack }: any) => {
+app.action('reject', async ({ body, ack, client }: any) => {
     await ack()
     await set(body.actions[0].value, Status.REJECTED)
 
-    app.client.chat.update({
-        token: process.env.token,
+    client.chat.update({
         channel: "G01HZC1QFMX",
         ts: body.message.ts,
         blocks: [],
