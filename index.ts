@@ -1,4 +1,4 @@
-import { App } from "@slack/bolt"
+import { App, ExpressReceiver } from "@slack/bolt"
 import { PrismaClient, Status } from "@prisma/client"
 const prisma = new PrismaClient()
 
@@ -13,8 +13,13 @@ const admins = [
     "U013B6CPV62" // Caleb
 ]
 
-const app = new App({
+const receiver = new ExpressReceiver({
     signingSecret: process.env.SIGNING_SECRET,
+    endpoints: '/slack/events'
+})
+
+const app = new App({
+    receiver,
     token: process.env.TOKEN
 })
 
@@ -273,5 +278,9 @@ async function main() {
     await app.start(process.env.PORT || 3000)
     console.log("👁 The Overseer Frontend running")
 }
+
+receiver.app.get('/ping', (_, res) => {
+    res.send('Online')
+})
 
 main()
