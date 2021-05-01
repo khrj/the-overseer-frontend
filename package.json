@@ -5,7 +5,7 @@
 	"license": "GPL-3.0",
 	"dependencies": {
 		"@prisma/client": "2.15.0",
-		"@slack/bolt": "^2.1.1",
+		"@slack/bolt": "^3.3.0",
 		"axios": "^0.21.1",
 		"dotenv": "^8.2.0",
 		"ts-node": "^9.1.1",
