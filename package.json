@@ -13,7 +13,7 @@
 	},
 	"devDependencies": {
 		"@prisma/cli": "2.20.1",
-		"@types/node": "^15.0.1",
+		"@types/node": "^15.0.2",
 		"nodemon": "^2.0.4"
 	},
 	"scripts": {
