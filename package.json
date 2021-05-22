@@ -1,6 +1,6 @@
 {
 	"name": "the-overseer",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"main": "index.js",
 	"license": "GPL-3.0",
 	"dependencies": {
@@ -13,8 +13,8 @@
 	},
 	"devDependencies": {
 		"@prisma/cli": "2.20.1",
-		"@types/node": "^15.0.2",
-		"nodemon": "^2.0.4"
+		"@types/node": "15.0.2",
+		"nodemon": "2.0.7"
 	},
 	"scripts": {
 		"start": "ts-node -r dotenv/config index.ts",
