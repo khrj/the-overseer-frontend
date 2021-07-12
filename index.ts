@@ -4,8 +4,8 @@ const prisma = new PrismaClient()
 
 import axios, { AxiosResponse } from "axios"
 
-const top20URL = "https://github.com/KhushrajRathod/TheOverseerBackend/releases/download/Latest/20.json"
-const leaderboardAllURL = "https://github.com/KhushrajRathod/TheOverseerBackend/releases/download/Latest/results.json"
+const top20URL = "https://github.com/khrj/the-overseer-backend/releases/download/Latest/20.json"
+const leaderboardAllURL = "https://github.com/khrj/the-overseer-backend/releases/download/Latest/results.json"
 const admins = [
     "U01C21G88QM", // Khushraj
     "UARKJATPW", // Claire
@@ -127,7 +127,7 @@ app.command('/analytics-leaderboard', async ({ command, ack, client }) => {
 
     try {
         const top20: AxiosResponse<[string, number][]> = await axios.get(top20URL)
-        
+
         let formattedText = ":chart_with_upwards_trend: Stats for the *past 30 days* (computed once every four hours)\n\n"
 
         for (let i = 0; i < top20.data.length; i++) {
@@ -154,7 +154,7 @@ app.command('/analytics-personal', async ({ command, ack, client }) => {
 
     try {
         const results: AxiosResponse<[string, number][]> = await axios.get(leaderboardAllURL)
-        
+
         let messages: number
         let rank: number
 
