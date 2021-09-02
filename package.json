@@ -1,10 +1,10 @@
 {
 	"name": "the-overseer",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"main": "index.js",
 	"license": "GPL-3.0",
 	"dependencies": {
-		"@prisma/client": "2.22.0",
+		"@prisma/client": "2.30.3",
 		"@slack/bolt": "^3.3.0",
 		"axios": "^0.21.1",
 		"dotenv": "^9.0.0",
@@ -14,7 +14,7 @@
 	"devDependencies": {
 		"@prisma/cli": "2.20.1",
 		"@types/node": "15.0.2",
-		"nodemon": "2.0.7"
+		"nodemon": "2.0.12"
 	},
 	"scripts": {
 		"start": "ts-node -r dotenv/config index.ts",
